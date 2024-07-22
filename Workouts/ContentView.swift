@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var workoutsType: [WorkoutType] = [WorkoutType.PUSH, WorkoutType.PULL, WorkoutType.LEGS]
+    var workoutsType: [WorkoutType] = [WorkoutType.PULL, WorkoutType.LEGS, WorkoutType.PUSH]
     
     let trainingSchedule = [
         ["PULL", "LEGS", "REST", "PUSH", "PULL"],

@@ -16,7 +16,7 @@ struct WorkoutDetailsView: View {
                     ForEach(workout.exercises) { exercise in
                         Section() {
                             if !exercise.orderedSets.isEmpty {
-                                ForEach(exercise.sets) { item in
+                                ForEach(exercise.orderedSets) { item in    
                                     Text("\(item.reps) reps X \(item.weight, specifier: "%.1f") kg \(item.warmup ? "- Aquecimento" : "")")
                                 }
                                 .onDelete(perform: { indexSet in
@@ -102,20 +102,20 @@ struct AddSetForm: View {
     
     @Binding var exercise: Exercise?
     
-    @State private var reps: Int = 0
-    @State private var weight: Double = 0.0
+    @State private var reps: String = ""
+    @State private var weight: String = ""
     @State private var warmup: Bool = false
     
     var body: some View {
         NavigationStack {
             Form {
                 Section("Reps") {
-                    TextField("Reps", value: $reps, format: .number)
+                    TextField("Reps", text: $reps)
                         .keyboardType(.decimalPad)
                 }
                 
                 Section("Weight") {
-                    TextField("Weight", value: $weight, format: .number)
+                    TextField("Weight", text: $weight)
                         .keyboardType(.decimalPad)
                 }
                 
@@ -137,7 +137,7 @@ struct AddSetForm: View {
     
     func handleAddSetToExercise() {
         if let exercise = exercise {
-            let set = ExerciseSet(reps: reps, weight: weight, warmup: warmup)
+            let set = ExerciseSet(reps: Int(reps) ?? 0, weight: Double(weight) ?? 0, warmup: warmup)
             
             exercise.sets.append(set)
                         
